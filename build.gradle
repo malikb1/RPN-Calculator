@@ -1,0 +1,32 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "au.com.airwallex.rpncalci.RPNCalculatorApplication"
+
+
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+	flatDir {
+	       dirs '/Users/malikb1/work/workspace/randomstuff/RPN-Calculator/lib'
+	   }
+    jcenter()
+}
+
+dependencies {
+    compile name: 'guava-jdk5-17.0'
+    testCompile name: 'hamcrest-core-1.3'
+    testCompile name: 'junit-4.12'
+}
+
+jar {
+	
+	jar.baseName = 'rpn-calci'
+	manifest {
+    attributes ("Main-Class" : "au.com.airwallex.rpncalci.RPNCalculatorApplication","Application-Version" : "0.1", "Built-At" : new Date().format("dd/MM/yyyy hh:mm aa"))
+	}
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }       
+	
+}	
